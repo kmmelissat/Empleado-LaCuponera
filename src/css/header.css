@@ -1,0 +1,64 @@
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand img {
+    max-height: 70px;
+}
+
+
+.navbar.py-3.px-6 {
+    padding-left: 4rem !important;
+    padding-right: 4rem !important;
+}
+
+.btn-outline-dark {
+    border-color: #426b69ff;
+    color: #426b69ff;
+}
+
+.btn-outline-dark:hover {
+    background-color: #426b69ff;
+    border-color: #426b69ff;
+    color: white;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.container-fluid {
+    padding-right: calc(var(--bs-gutter-x)* .8);
+    padding-left: calc(var(--bs-gutter-x)* .5);
+}
+
+/* SVG Icon Styles */
+.bi-bag-heart,
+.bi-bookmark-heart {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #426b69ff;
+}
+
+.bi-bag-heart:hover,
+.bi-bookmark-heart:hover {
+    transform: scale(1.1);
+    color: #5a8a87;
+}
+
+.d-flex.align-items-center svg {
+    margin-right: 15px;
+}
