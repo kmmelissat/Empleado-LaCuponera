@@ -14,19 +14,17 @@ export function Login({ usuario, onSignInClick }) {
     };
 
     return (
-        <div>
-            <div className="container-fluid">
-                <Link className="navbar-brand" to="/">
-                    <img src="/img/cuponeralogo.svg" alt="Logo de Cuponera" />
-                </Link>
-                <div>
-                    <div className="d-flex align-items-center">
+        <div className="container-fluid vh-100 d-flex flex-column justify-content-center align-items-center">
+            <Link className="navbar-brand" to="/">
+                <img src="/img/cuponeralogo.svg" alt="Logo de Cuponera" className="img-fluid" style={{ width: '600px' }} />
+            </Link>
+            <div className="mt-3">
+                <div className="d-flex justify-content-center">
                     {usuario ? (
-                        <button className="btn btn-outline-danger mx-3" onClick={handleSignOut}>Cerrar Sesión</button>
+                        <button className="btn btn-outline-danger btn-lg mx-3" onClick={handleSignOut}>Cerrar Sesión</button>
                     ) : (
-                        <button className="btn btn-outline-dark mx-3" onClick={onSignInClick}>Iniciar Sesión</button>
+                        <button className="btn btn-outline-dark btn-lg mx-3" onClick={onSignInClick}>Iniciar Sesión</button>
                     )}
-                </div>
                 </div>
             </div>
         </div>
