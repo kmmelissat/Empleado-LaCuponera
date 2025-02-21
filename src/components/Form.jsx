@@ -1,45 +1,51 @@
 import React, { useState } from "react";
-import { auth, db } from "../firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../firebase"; 
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore"; 
 
 export const Form = ({ onAuthSuccess, onCloseForm }) => {
-    const [nombres, setNombre] = useState("");
-    const [apellidos, setApellido] = useState("");
-    const [telefono, setTelefono] = useState("");
-    const [direccion, setDireccion] = useState("");
-    const [dui, setDui] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [isRegister, setIsRegister] = useState(true);
     const [error, setError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
 
-    const handleAuth = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        setError(null);
+        setError(null); 
+        setSuccessMessage(null); 
 
         try {
-            let userCredential;
-            if (isRegister) {
-                userCredential = await createUserWithEmailAndPassword(auth, email, password);
-
-                await setDoc(doc(db, "empleados", userCredential.user.uid), {
-                    nombres,
-                    apellidos,
-                    telefono,
-                    direccion,
-                    dui,
-                    email,
-                    createdAt: new Date()
-                });
-            } else {
-                userCredential = await signInWithEmailAndPassword(auth, email, password);
-            }
-
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log("Usuario autenticado:", userCredential.user);
-            onAuthSuccess();
+
+            const empleadoDocRef = doc(db, "empleados", userCredential.user.uid); 
+            const empleadoDoc = await getDoc(empleadoDocRef); 
+
+            if (empleadoDoc.exists()) {
+                console.log("Usuario es empleado, acceso permitido.");
+                setSuccessMessage("Inicio de sesión exitoso. Redirigiendo..."); 
+                onAuthSuccess(); 
+            } else {
+                setError("Acceso denegado. Solo los empleados pueden iniciar sesión.");
+                await auth.signOut(); 
+            }
         } catch (error) {
-            setError(error.message);
+            console.error("Error durante el inicio de sesión:", error); 
+
+            switch (error.code) {
+                case "auth/invalid-credential":
+                    setError("Credenciales incorrectas. Por favor, verifica tu correo y contraseña.");
+                    break;
+                case "auth/user-not-found":
+                    setError("Usuario no encontrado. Verifica tu correo electrónico.");
+                    break;
+                case "auth/wrong-password":
+                    setError("Contraseña incorrecta. Por favor, inténtalo de nuevo.");
+                    break;
+                default:
+                    setError("Ocurrió un error durante el inicio de sesión. Por favor, inténtalo de nuevo.");
+                    break;
+            }
         }
     };
 
@@ -49,48 +55,43 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
                 className="card p-4 shadow"
                 style={{ width: "25rem", backgroundColor: "#d4edda", maxHeight: "80vh", overflowY: "auto" }}>
                 <button className="btn-close" onClick={onCloseForm}></button>
-                <h2 className="text-center">{isRegister ? "Registro" : "Iniciar Sesión"}</h2>
-                {error && <div className="alert alert-danger">{error}</div>}
-                <form onSubmit={handleAuth}>
-                    {isRegister && (
-                        <>
-                            <div className="mb-3">
-                                <label className="form-label">Nombres</label>
-                                <input type="text" className="form-control" value={nombres} onChange={(e) => setNombre(e.target.value)} required />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Apellidos</label>
-                                <input type="text" className="form-control" value={apellidos} onChange={(e) => setApellido(e.target.value)} required />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Teléfono</label>
-                                <input type="text" className="form-control" value={telefono} onChange={(e) => setTelefono(e.target.value)} required />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Dirección</label>
-                                <input type="text" className="form-control" value={direccion} onChange={(e) => setDireccion(e.target.value)} required />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">DUI</label>
-                                <input type="text" className="form-control" value={dui} onChange={(e) => setDui(e.target.value)} required />
-                            </div>
-                        </>
-                    )}
+                <h2 className="text-center">Iniciar Sesión</h2>
+
+                {/* Mostrar mensaje de éxito */}
+                {successMessage && (
+                    <div className="alert alert-success">{successMessage}</div>
+                )}
+
+                {/* Mostrar mensaje de error */}
+                {error && (
+                    <div className="alert alert-danger">{error}</div>
+                )}
+
+                <form onSubmit={handleLogin}>
                     <div className="mb-3">
                         <label className="form-label">Correo Electrónico</label>
-                        <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        <input
+                            type="email"
+                            className="form-control"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Contraseña</label>
-                        <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                        <input
+                            type="password"
+                            className="form-control"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
                     </div>
                     <button type="submit" className="btn btn-success w-100">
-                        {isRegister ? "Registrarse" : "Iniciar Sesión"}
+                        Iniciar Sesión
                     </button>
                 </form>
-                <button className="btn btn-link mt-3" onClick={() => setIsRegister(!isRegister)}>
-                    {isRegister ? "¿Ya tienes cuenta? Inicia sesión" : "¿No tienes cuenta? Regístrate"}
-                </button>
             </div>
         </div>
     );
