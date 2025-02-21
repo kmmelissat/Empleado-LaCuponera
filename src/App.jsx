@@ -9,9 +9,6 @@ import { Header } from "./components/Header.jsx";
 import { Form } from "./components/Form.jsx";
 import './css/custom.css';
 
-// Si la imagen está en la carpeta 'assets', puedes importarla como sigue
-// import fondo from './assets/imagen.jpg';
-
 function App() {
   const [usuario, setUsuario] = useState(null);
   const [mostrarForm, setMostrarForm] = useState(false);
@@ -51,33 +48,40 @@ function App() {
           backgroundPosition: "center"
         }}
       >
-        <Header usuario={usuario} onSignInClick={() => setMostrarForm(true)} onSignOutClick={handleSignOut} />
+        <Header usuario={usuario} />
+        
+        <div style={{
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center", 
+          height: "100vh", 
+          position: "absolute", 
+          top: 0, 
+          left: 0, 
+          right: 0, 
+          zIndex: 100
+        }}>
+          {!usuario && (
+            <button className="btn btn-outline-dark mx-3" onClick={() => setMostrarForm(true)}>
+              Iniciar Sesión
+            </button>
+          )}
 
-        <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-                <li className="nav-item"><a className="nav-link active" href="#home">Inicio</a></li>
-                <li className="nav-item"><a className="nav-link" href="#cupones">Cupones</a></li>
-                <li className="nav-item"><a className="nav-link" href="#perfil">Mi Perfil</a></li>
-            </ul>
+          {usuario && (
+            <button className="btn btn-outline-danger mx-3" onClick={handleSignOut}>
+              Cerrar Sesión
+            </button>
+          )}
         </div>
 
-        <footer className="bg-light text-center text-lg-start mt-4">
-          <div className="container p-4">
-              <p>&copy; 2023 Company Name. All rights reserved.</p>
-              <div>
-                  <a href="#contact" className="text-dark me-3">Contact HR</a>
-                  <a href="#help" className="text-dark me-3">Help Desk</a>
-                  <a href="#privacy" className="text-dark">Privacy Policy</a>
-              </div>
-          </div>
-        </footer>
-
+        {/* Alerta */}
         {alerta && (
           <div className="alert alert-info text-center" role="alert">
             {alerta}
           </div>
         )}
 
+        {/* Formulario de autenticación */}
         {mostrarForm && !usuario && (
           <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000 }}>
             <Form onAuthSuccess={() => { setUsuario(auth.currentUser); setMostrarForm(false); }} onCloseForm={() => setMostrarForm(false)} />
