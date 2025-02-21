@@ -43,7 +43,6 @@ function App() {
     <Router>
       <div style={{ backgroundColor: "rgb(227, 238, 206)", minHeight: "100vh" }}>
         <Header usuario={usuario} onSignInClick={() => setMostrarForm(true)} onSignOutClick={handleSignOut} />
-        {usuario && <Bienvenida usuario={usuario} />}
 
         
         <div className="collapse navbar-collapse" id="navbarNav">
