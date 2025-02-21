@@ -7,6 +7,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Header } from "./components/Header.jsx";
 import { Form } from "./components/Form.jsx";
+import CanjeCupon from "./components/CanjeCupon.jsx";
 
 
 function App() {
@@ -55,10 +56,10 @@ function App() {
             <Form onAuthSuccess={() => { setUsuario(auth.currentUser); setMostrarForm(false); }} onCloseForm={() => setMostrarForm(false)} />
           </div>
         )}
-
+        
         <Routes>
-          <Route path="/" element={<></>} />
-
+          <Route path="/" element={<h2 className="text-center mt-5">Bienvenido al Sistema de Canje de Cupones</h2>} />
+          <Route path="/canje" element={<CanjeCupon />} />
         </Routes>
 
       </div>
