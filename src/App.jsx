@@ -55,28 +55,7 @@ function App() {
             </ul>
         </div>
 
-        <div class="row">
-            <section id="quick-links" class="col-md-6 mb-4">
-                <h3>Quick Links</h3>
-                <div class="list-group">
-                    <a href="#timesheet" class="list-group-item list-group-item-action">Submit Timesheet</a>
-                    <a href="#vacation" class="list-group-item list-group-item-action">Request Vacation</a>
-                    <a href="#benefits" class="list-group-item list-group-item-action">View Benefits</a>
-                    <a href="#training" class="list-group-item list-group-item-action">Training Modules</a>
-                </div>
-            </section>
-
-            <section id="announcements" class="col-md-6 mb-4">
-                <h3>Recent Announcements</h3>
-                <ul class="list-group">
-                    <li class="list-group-item">Company picnic scheduled for next month</li>
-                    <li class="list-group-item">New health insurance options available</li>
-                    <li class="list-group-item">Quarterly meeting presentation slides now available</li>
-                </ul>
-            </section>
-        </div>
-
-        <Footer/>
+        <Footer />
         
 
         {alerta && (
