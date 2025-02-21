@@ -9,7 +9,7 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
-    const navigate =useNavigate();
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -27,14 +27,14 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
                 console.log("Usuario es empleado, acceso permitido.");
                 setSuccessMessage("Inicio de sesión exitoso. Redirigiendo...");
                 onAuthSuccess();
-                navigate("/canje-de-cupones")
+                navigate("/canje-de-cupones");
             } else {
                 console.log("Acceso denegado. Solo los empleados pueden iniciar sesión.");
                 await auth.signOut();
-                return; 
+                setError("Acceso denegado. Solo los empleados pueden iniciar sesión.");
             }
         } catch (error) {
-            setError(error.message);
+            setError("Credenciales incorrectas. Verifique su correo y contraseña.");
         }
     };
 
@@ -47,6 +47,7 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
                 <button className="btn-close" onClick={onCloseForm}></button>
                 <h2 className="text-center">Iniciar Sesión</h2>
                 {error && <div className="alert alert-danger">{error}</div>}
+                {successMessage && <div className="alert alert-success">{successMessage}</div>}
                 <form onSubmit={handleLogin}>
                     <div className="mb-3">
                         <label className="form-label">Correo Electrónico</label>

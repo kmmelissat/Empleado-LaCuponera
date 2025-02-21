@@ -12,50 +12,43 @@ const FormularioCanje = ({ onSubmit }) => {
     e.preventDefault();
     setError(null);
     setMensajeExito("");
-
-    // Validar que los campos no estén vacíos
+  
     if (!codigoCupon.trim() || !dui.trim()) {
       setError("Debe ingresar el código del cupón y el DUI.");
       return;
     }
-
+  
     try {
       const cuponesRef = collection(db, "cupones-comprados");
       const querySnapshot = await getDocs(cuponesRef);
-
-      // Buscar el cupón válido dentro de Firestore
+  
       const documento = querySnapshot.docs.find((doc) => {
         const data = doc.data();
-        const usuarioDui = data.usuario?.dui; // Obtener el DUI del usuario
-        const cupones = data.cupones || []; // Lista de cupones
-
+        const usuarioDui = data.usuario?.dui;
+        const cupones = data.cupones || [];
+  
         return cupones.some((cupon) => cupon.codigo === codigoCupon) && usuarioDui === dui;
       });
-
+  
       if (!documento) {
         setError("Cupón no encontrado o datos incorrectos.");
         return;
       }
-
-      // Obtener la referencia del documento
+  
       const docId = documento.id;
-      const data = documento.data();
-      const cuponesActualizados = data.cupones.map((cupon) =>
-        cupon.codigo === codigoCupon ? { ...cupon, estado: "canjeado" } : cupon
-      );
-
-      // Actualizar Firestore
-      await updateDoc(doc(db, "cupones-comprados", docId), { cupones: cuponesActualizados });
-
-      // Mostrar mensaje de éxito
+  
+      // Actualizar el campo status a "canjeado"
+      await updateDoc(doc(db, "cupones-comprados", docId), {
+        status: "canjeado",
+      });
+  
       setMensajeExito("El cupón ha sido canjeado exitosamente.");
-      onSubmit({ codigo: codigoCupon, estado: "canjeado" });
+      onSubmit({ codigo: codigoCupon, status: "canjeado" });
     } catch (error) {
-      setError("Error al validar el cupón.");
       console.error("Error al validar el cupón: ", error);
     }
   };
-
+  
   return (
     <div className="container mt-4">
       <h3 className="text-center">Canje de Cupón</h3>
