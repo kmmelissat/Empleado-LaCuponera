@@ -7,11 +7,13 @@ const FormularioCanje = ({ onSubmit }) => {
   const [dui, setDui] = useState("");
   const [error, setError] = useState(null);
   const [mensajeExito, setMensajeExito] = useState("");
+  const [datosCupon, setDatosCupon] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setMensajeExito("");
+    setDatosCupon(null);
 
     if (!codigoCupon.trim() || !dui.trim()) {
       setError("Debe ingresar el código del cupón y el DUI.");
@@ -36,16 +38,27 @@ const FormularioCanje = ({ onSubmit }) => {
       }
 
       const docId = documento.id;
+      const data = documento.data();
 
       // Actualizar el campo status a "canjeado"
       await updateDoc(doc(db, "cupones-comprados", docId), {
         status: "canjeado",
       });
 
+      // Obtener los datos del cupón y del usuario
+      const cuponEncontrado = data.cupones.find(cupon => cupon.codigo === codigoCupon);
+      const datosUsuario = data.usuario;
+
+      setDatosCupon({
+        usuario: datosUsuario,
+        cupon: cuponEncontrado
+      });
+
       setMensajeExito("El cupón ha sido canjeado exitosamente.");
       onSubmit({ codigo: codigoCupon, status: "canjeado" });
     } catch (error) {
       console.error("Error al validar el cupón: ", error);
+      setError("Ocurrió un error al procesar el cupón.");
     }
   };
 
@@ -87,6 +100,24 @@ const FormularioCanje = ({ onSubmit }) => {
           </div>
         </div>
       </div>
+      {datosCupon && (
+        <div className="row justify-content-center mt-4">
+          <div className="col-md-6">
+            <div className="card shadow">
+              <div className="card-body">
+                <h4 className="card-title">Datos del Cupón Canjeado</h4>
+                <h5>Usuario</h5>
+                <p>Nombre: {datosCupon.usuario.nombres} {datosCupon.usuario.apellidos}</p>
+                <p>DUI: {datosCupon.usuario.dui}</p>
+                <h5>Cupón</h5>
+                <p>Código: {datosCupon.cupon.codigo}</p>
+                <p>Título: {datosCupon.cupon.titulo}</p>
+                <p>Descripción: {datosCupon.cupon.descripcion}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
