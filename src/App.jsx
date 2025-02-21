@@ -5,6 +5,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Login } from "./components/Login.jsx";
 import { Form } from "./components/Form.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import FormularioCanje from "./components/FormularioCanje.jsx";
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -52,6 +53,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<></>} />
+          <Route path="/canje-de-cupones" element={<FormularioCanje/>} />
         </Routes>
     </Router>
   );
