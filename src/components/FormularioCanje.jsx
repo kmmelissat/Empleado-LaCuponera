@@ -59,8 +59,8 @@ const FormularioCanje = ({ onSubmit }) => {
   return (
     <div className="container mt-4">
       <h3 className="text-center">Canje de Cupón</h3>
-      <form onSubmit={handleSubmit} className="p-3 border rounded bg-light">
-        <div className="mb-3">
+      <form onSubmit={handleSubmit} className="p-3 border rounded bg-light w-25 mx-auto">
+        <div className="mb-3 text-center">
           <label className="form-label">Código del Cupón</label>
           <input
             type="text"
@@ -70,7 +70,7 @@ const FormularioCanje = ({ onSubmit }) => {
             required
           />
         </div>
-        <div className="mb-3">
+        <div className="mb-3 text-center">
           <label className="form-label">DUI</label>
           <input
             type="text"
@@ -82,7 +82,7 @@ const FormularioCanje = ({ onSubmit }) => {
         </div>
         {error && <div className="alert alert-danger">{error}</div>}
         {mensajeExito && <div className="alert alert-success">{mensajeExito}</div>}
-        <button type="submit" className="btn btn-primary w-100">
+        <button type="submit" className="btn btn-success w-100 py-3">
           Canjear
         </button>
       </form>
