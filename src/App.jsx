@@ -7,7 +7,7 @@ import { Form } from "./components/Form.jsx";
 import { Header } from "./components/Header.jsx"; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FormularioCanje from "./components/FormularioCanje.jsx";
-import { Footer } from "./components/Footer.jsx";
+import { Footer } from "./components/Footer.jsx"; // Importar el Footer
 
 const ProtectedRoute = ({ user, children }) => {
   if (!user) {
@@ -47,6 +47,7 @@ function App() {
 
   return (
     <Router>
+      <div className="d-flex flex-column min-vh-100">
         {usuario && <Header usuario={usuario} onSignOutClick={handleSignOut} />}
 
         {!usuario && (
@@ -65,26 +66,29 @@ function App() {
           </div>
         )}
 
-        {usuario && <Footer usuario={usuario} onSignOutClick={handleSignOut} />}
+        <div className="flex-grow-1">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute user={usuario}>
+                  <FormularioCanje />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/canje-de-cupones"
+              element={
+                <ProtectedRoute user={usuario}>
+                  <FormularioCanje />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </div>
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute user={usuario}>
-                <FormularioCanje />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/canje-de-cupones"
-            element={
-              <ProtectedRoute user={usuario}>
-                <FormularioCanje />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
+        {usuario && <Footer />}
+      </div>
     </Router>
   );
 }
