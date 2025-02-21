@@ -7,7 +7,7 @@ export function Header({ usuario, onSignOutClick }) {
     const handleSignOut = async () => {
         try {
             await signOut(auth);
-            if (onSignOutClick) onSignOutClick(); // Llama a la función de cierre de sesión
+            if (onSignOutClick) onSignOutClick(); 
         } catch (error) {
             console.error("Error al cerrar sesión:", error);
         }
@@ -22,7 +22,6 @@ export function Header({ usuario, onSignOutClick }) {
               <img src="/img/cuponeralogo.svg" alt="Logo de Cuponera" style={{ width: '150px' }} />
             </Link>
 
-            {/* Botón para colapsar en dispositivos móviles */}
             <button
               className="navbar-toggler"
               type="button"
@@ -35,7 +34,6 @@ export function Header({ usuario, onSignOutClick }) {
               <span className="navbar-toggler-icon"></span>
             </button>
 
-            {/* Menú de navegación */}
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
@@ -47,7 +45,6 @@ export function Header({ usuario, onSignOutClick }) {
                 <li className="nav-item">
                   <Link className="nav-link" to="/perfil">Mi Perfil</Link>
                 </li>
-                {/* Botón de cierre de sesión */}
                 {usuario && (
                   <li className="nav-item">
                     <button className="nav-link btn btn-link" onClick={handleSignOut}>

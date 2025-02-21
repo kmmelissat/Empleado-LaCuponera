@@ -4,7 +4,7 @@ import { auth } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Login } from "./components/Login.jsx";
 import { Form } from "./components/Form.jsx";
-import { Header } from "./components/Header.jsx"; // Importar el Header
+import { Header } from "./components/Header.jsx"; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FormularioCanje from "./components/FormularioCanje.jsx";
 
@@ -46,29 +46,24 @@ function App() {
 
   return (
     <Router>
-        {/* Mostrar el Header solo si el usuario está autenticado */}
         {usuario && <Header usuario={usuario} onSignOutClick={handleSignOut} />}
 
-        {/* Mostrar el Login solo si no hay usuario autenticado */}
         {!usuario && (
           <Login usuario={usuario} onSignInClick={() => setMostrarForm(true)} onSignOutClick={handleSignOut} />
         )}
 
-        {/* Mostrar alertas */}
         {alerta && (
           <div className="alert alert-success text-center mt-3 mx-3" role="alert">
             {alerta}
           </div>
         )}
 
-        {/* Mostrar el formulario de inicio de sesión si no hay usuario */}
         {mostrarForm && !usuario && (
           <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000 }}>
             <Form onAuthSuccess={() => { setUsuario(auth.currentUser); setMostrarForm(false); }} onCloseForm={() => setMostrarForm(false)} />
           </div>
         )}
 
-        {/* Rutas */}
         <Routes>
           <Route
             path="/"
