@@ -7,6 +7,7 @@ import { Form } from "./components/Form.jsx";
 import { Header } from "./components/Header.jsx"; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FormularioCanje from "./components/FormularioCanje.jsx";
+import { Footer } from "./components/Footer.jsx";
 
 const ProtectedRoute = ({ user, children }) => {
   if (!user) {
@@ -63,6 +64,8 @@ function App() {
             <Form onAuthSuccess={() => { setUsuario(auth.currentUser); setMostrarForm(false); }} onCloseForm={() => setMostrarForm(false)} />
           </div>
         )}
+
+        {usuario && <Footer usuario={usuario} onSignOutClick={handleSignOut} />}
 
         <Routes>
           <Route

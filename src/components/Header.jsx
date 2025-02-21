@@ -47,7 +47,7 @@ export function Header({ usuario, onSignOutClick }) {
                 </li>
                 {usuario && (
                   <li className="nav-item">
-                    <button className="nav-link btn btn-link" onClick={handleSignOut}>
+                    <button className="btn btn-outline-danger mx-3" onClick={handleSignOut}>
                       Cerrar Sesión
                     </button>
                   </li>

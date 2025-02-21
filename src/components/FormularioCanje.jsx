@@ -58,7 +58,7 @@ const FormularioCanje = ({ onSubmit }) => {
               <h3 className="card-title text-center mb-4">Canje de Cupón</h3>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label className="form-label">Código del Cupón</label>
+                  <label className="form-label text-center">Código del Cupón</label>
                   <input
                     type="text"
                     className="form-control"
@@ -68,7 +68,7 @@ const FormularioCanje = ({ onSubmit }) => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">DUI</label>
+                  <label className="form-label text-center">DUI</label>
                   <input
                     type="text"
                     className="form-control"
