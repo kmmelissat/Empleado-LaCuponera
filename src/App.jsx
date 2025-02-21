@@ -47,7 +47,7 @@ function App() {
     <Router>
         <Login usuario={usuario} onSignInClick={() => setMostrarForm(true)} onSignOutClick={handleSignOut} />
         {alerta && (
-          <div className="alert alert-info text-center" role="alert">
+          <div className="alert alert-success border border-dark rounded text-center mx-3" role="alert">
             {alerta}
           </div>
         )}

@@ -21,11 +21,14 @@ export function Login({ usuario, onSignInClick }) {
             <div className="mt-3">
                 <div className="d-flex justify-content-center">
                     {usuario ? (
-                        <button className="btn btn-outline-danger btn-lg mx-3" onClick={handleSignOut}>Cerrar Sesión</button>
+                        <button className="btn btn-outline-danger btn-lg mx-3 mb-4" onClick={handleSignOut}>Cerrar Sesión</button>
                     ) : (
-                        <button className="btn btn-outline-dark btn-lg mx-3" onClick={onSignInClick}>Iniciar Sesión</button>
+                        <button className="btn btn-outline-dark btn-lg mx-3 mb-4" onClick={onSignInClick}>Iniciar Sesión</button>
                     )}
                 </div>
+            </div>
+            <div > 
+                {usuario && <h1 className="mb-4 mt-4 fw-bold text-green">¡Bienvenido!</h1>} {/* Muestra el título solo si hay usuario */}
             </div>
         </div>
     );
