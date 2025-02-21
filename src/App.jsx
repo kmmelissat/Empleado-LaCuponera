@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { auth } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Login } from "./components/Login.jsx";
 import { Form } from "./components/Form.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FormularioCanje from "./components/FormularioCanje.jsx";
+
+const ProtectedRoute = ({ user, children }) => {
+  if (!user) {
+    return <Navigate to="/Login" />; 
+  }
+  return children;
+};
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -16,11 +23,11 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUsuario(user);
-        setAlerta("¡Has iniciado sesión correctamente!");
+        setAlerta("¡Has iniciado sesión correctamente!");
         setTimeout(() => setAlerta(null), 3000);
       } else {
         setUsuario(null);
-        setAlerta("Has cerrado sesión.");
+        setAlerta("Has cerrado sesión.");
         setTimeout(() => setAlerta(null), 3000);
       }
     });
@@ -32,7 +39,7 @@ function App() {
       await signOut(auth);
       setUsuario(null);
     } catch (error) {
-      console.error("Error al cerrar sesión:", error);
+      console.error("Error al cerrar sesión:", error);
     }
   };
 
@@ -53,7 +60,11 @@ function App() {
 
         <Routes>
           <Route path="/" element={<></>} />
-          <Route path="/canje-de-cupones" element={<FormularioCanje/>} />
+          <Route path="/canje-de-cupones" element={
+              <ProtectedRoute user={usuario}>
+                <FormularioCanje /> {FormularioCanje}
+              </ProtectedRoute>
+            }  />
         </Routes>
     </Router>
   );
