@@ -22,13 +22,7 @@ export function Header({ usuario, onSignInClick }) {
                         <img src="/img/cuponeralogo.svg" alt="Logo de Cuponera" />
                     </Link>
 
-                    <div className="d-flex align-items-center">
-                        {usuario ? (
-                            <button className="btn btn-outline-danger mx-3" onClick={handleSignOut}>Cerrar Sesión</button>
-                        ) : (
-                            <button className="btn btn-outline-dark mx-3" onClick={onSignInClick}>Iniciar Sesión</button>
-                        )}
-                    </div>
+                    
 
                     <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav ms-auto">
@@ -36,6 +30,13 @@ export function Header({ usuario, onSignInClick }) {
                                 <li className="nav-item"><a className="nav-link" href="#cupones">Cupones</a></li>
                                 <li className="nav-item"><a className="nav-link" href="#perfil">Mi Perfil</a></li>
                             </ul>
+                        <div className="d-flex align-items-center">
+                        {usuario ? (
+                            <button className="btn btn-outline-danger mx-3" onClick={handleSignOut}>Cerrar Sesión</button>
+                        ) : (
+                            <button className="btn btn-outline-dark mx-3" onClick={onSignInClick}>Iniciar Sesión</button>
+                        )}
+                    </div>
                     </div>
                 </div>
             </nav>
