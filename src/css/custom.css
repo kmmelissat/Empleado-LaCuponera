@@ -1,0 +1,13 @@
+body {
+    padding-bottom: 60px; 
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

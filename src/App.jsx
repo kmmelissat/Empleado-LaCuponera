@@ -7,6 +7,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Header } from "./components/Header.jsx";
 import { Form } from "./components/Form.jsx";
+import './css/custom.css';
 
 
 function App() {
@@ -52,6 +53,38 @@ function App() {
                 <li className="nav-item"><a className="nav-link" href="#perfil">Mi Perfil</a></li>
             </ul>
         </div>
+
+        <div class="row">
+            <section id="quick-links" class="col-md-6 mb-4">
+                <h3>Quick Links</h3>
+                <div class="list-group">
+                    <a href="#timesheet" class="list-group-item list-group-item-action">Submit Timesheet</a>
+                    <a href="#vacation" class="list-group-item list-group-item-action">Request Vacation</a>
+                    <a href="#benefits" class="list-group-item list-group-item-action">View Benefits</a>
+                    <a href="#training" class="list-group-item list-group-item-action">Training Modules</a>
+                </div>
+            </section>
+
+            <section id="announcements" class="col-md-6 mb-4">
+                <h3>Recent Announcements</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">Company picnic scheduled for next month</li>
+                    <li class="list-group-item">New health insurance options available</li>
+                    <li class="list-group-item">Quarterly meeting presentation slides now available</li>
+                </ul>
+            </section>
+        </div>
+
+        <footer class="bg-light text-center text-lg-start mt-4">
+          <div class="container p-4">
+              <p>&copy; 2023 Company Name. All rights reserved.</p>
+              <div>
+                  <a href="#contact" class="text-dark me-3">Contact HR</a>
+                  <a href="#help" class="text-dark me-3">Help Desk</a>
+                  <a href="#privacy" class="text-dark">Privacy Policy</a>
+              </div>
+          </div>
+        </footer>
 
         {alerta && (
           <div className="alert alert-info text-center" role="alert">
