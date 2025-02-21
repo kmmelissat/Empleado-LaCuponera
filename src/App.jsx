@@ -61,27 +61,6 @@ function App() {
             </ul>
         </div>
 
-        <div className="row">
-            <section id="quick-links" className="col-md-6 mb-4">
-                <h3>Quick Links</h3>
-                <div className="list-group">
-                    <a href="#timesheet" className="list-group-item list-group-item-action">Submit Timesheet</a>
-                    <a href="#vacation" className="list-group-item list-group-item-action">Request Vacation</a>
-                    <a href="#benefits" className="list-group-item list-group-item-action">View Benefits</a>
-                    <a href="#training" className="list-group-item list-group-item-action">Training Modules</a>
-                </div>
-            </section>
-
-            <section id="announcements" className="col-md-6 mb-4">
-                <h3>Recent Announcements</h3>
-                <ul className="list-group">
-                    <li className="list-group-item">Company picnic scheduled for next month</li>
-                    <li className="list-group-item">New health insurance options available</li>
-                    <li className="list-group-item">Quarterly meeting presentation slides now available</li>
-                </ul>
-            </section>
-        </div>
-
         <footer className="bg-light text-center text-lg-start mt-4">
           <div className="container p-4">
               <p>&copy; 2023 Company Name. All rights reserved.</p>
