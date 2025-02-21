@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { auth, db } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 export const Form = ({ onAuthSuccess, onCloseForm }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+    const navigate =useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -25,6 +27,7 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
                 console.log("Usuario es empleado, acceso permitido.");
                 setSuccessMessage("Inicio de sesión exitoso. Redirigiendo...");
                 onAuthSuccess();
+                navigate("/canje-de-cupones")
             } else {
                 console.log("Acceso denegado. Solo los empleados pueden iniciar sesión.");
                 await auth.signOut();
