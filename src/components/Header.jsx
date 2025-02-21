@@ -39,12 +39,6 @@ export function Header({ usuario, onSignOutClick }) {
                 <li className="nav-item">
                   <Link className="nav-link active" to="/">Inicio</Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/cupones">Cupones</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/perfil">Mi Perfil</Link>
-                </li>
                 {usuario && (
                   <li className="nav-item">
                     <button className="btn btn-outline-danger mx-3" onClick={handleSignOut}>
