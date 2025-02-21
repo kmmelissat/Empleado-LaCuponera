@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Perfil from './components/Perfil'; // Import the Perfil component
 import { auth } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Login } from "./components/Login.jsx";
@@ -81,6 +82,14 @@ function App() {
               element={
                 <ProtectedRoute user={usuario}>
                   <FormularioCanje />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/perfil"
+              element={
+                <ProtectedRoute user={usuario}>
+                  <Perfil />
                 </ProtectedRoute>
               }
             />

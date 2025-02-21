@@ -37,7 +37,10 @@ export function Header({ usuario, onSignOutClick }) {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav ms-auto">
                 <li className="nav-item">
-                  <Link className="nav-link active" to="/">Inicio</Link>
+                  <Link className="nav-link" to="/">Inicio</Link>
+                </li>
+                <li className="nav-item">
+                    <Link className="nav-link" to="/perfil">Perfil</Link>
                 </li>
                 {usuario && (
                   <li className="nav-item">
@@ -46,7 +49,7 @@ export function Header({ usuario, onSignOutClick }) {
                     </button>
                   </li>
                 )}
-              </ul>
+                </ul>
             </div>
           </div>
         </nav>
