@@ -7,6 +7,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Header } from "./components/Header.jsx";
 import { Form } from "./components/Form.jsx";
+import { Footer } from "./components/Footer.jsx";
 import './css/custom.css';
 
 
@@ -75,16 +76,8 @@ function App() {
             </section>
         </div>
 
-        <footer class="bg-light text-center text-lg-start mt-4">
-          <div class="container p-4">
-              <p>&copy; 2023 Company Name. All rights reserved.</p>
-              <div>
-                  <a href="#contact" class="text-dark me-3">Contact HR</a>
-                  <a href="#help" class="text-dark me-3">Help Desk</a>
-                  <a href="#privacy" class="text-dark">Privacy Policy</a>
-              </div>
-          </div>
-        </footer>
+        <Footer/>
+        
 
         {alerta && (
           <div className="alert alert-info text-center" role="alert">
