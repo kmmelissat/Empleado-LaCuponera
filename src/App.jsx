@@ -9,12 +9,10 @@ import { Header } from "./components/Header.jsx";
 import { Form } from "./components/Form.jsx";
 import './css/custom.css';
 
-
 function App() {
   const [usuario, setUsuario] = useState(null);
   const [mostrarForm, setMostrarForm] = useState(false);
   const [alerta, setAlerta] = useState(null);
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -42,46 +40,60 @@ function App() {
 
   return (
     <Router>
-      <div style={{ backgroundColor: "rgb(227, 238, 206)", minHeight: "100vh" }}>
+      <div>
+        {/* Componente Header */}
         <Header usuario={usuario} onSignInClick={() => setMostrarForm(true)} onSignOutClick={handleSignOut} />
 
-        
+        {/* Imagen debajo del Header */}
+        <div style={{ textAlign: 'center' }}>
+          <img 
+            src="/img/fondo.jpeg" 
+            alt="Descripción de la imagen" 
+            style={{
+              width: "100%",  // Ajusta el tamaño de la imagen según lo desees
+              height:"400px",
+              maxWidth: "100%",  // Evita que la imagen se extienda más allá de su tamaño
+              marginTop: "20px", // Ajusta la posición superior de la imagen
+            }} 
+          />
+        </div>
+
         <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-                <li className="nav-item"><a className="nav-link active" href="#home">Inicio</a></li>
-                <li className="nav-item"><a className="nav-link" href="#cupones">Cupones</a></li>
-                <li className="nav-item"><a className="nav-link" href="#perfil">Mi Perfil</a></li>
-            </ul>
+          <ul className="navbar-nav ms-auto">
+              <li className="nav-item"><a className="nav-link active" href="#home">Inicio</a></li>
+              <li className="nav-item"><a className="nav-link" href="#cupones">Cupones</a></li>
+              <li className="nav-item"><a className="nav-link" href="#perfil">Mi Perfil</a></li>
+          </ul>
         </div>
 
-        <div class="row">
-            <section id="quick-links" class="col-md-6 mb-4">
-                <h3>Quick Links</h3>
-                <div class="list-group">
-                    <a href="#timesheet" class="list-group-item list-group-item-action">Submit Timesheet</a>
-                    <a href="#vacation" class="list-group-item list-group-item-action">Request Vacation</a>
-                    <a href="#benefits" class="list-group-item list-group-item-action">View Benefits</a>
-                    <a href="#training" class="list-group-item list-group-item-action">Training Modules</a>
-                </div>
-            </section>
+        <div className="row">
+          <section id="quick-links" className="col-md-6 mb-4">
+              <h3>Quick Links</h3>
+              <div className="list-group">
+                  <a href="#timesheet" className="list-group-item list-group-item-action">Submit Timesheet</a>
+                  <a href="#vacation" className="list-group-item list-group-item-action">Request Vacation</a>
+                  <a href="#benefits" className="list-group-item list-group-item-action">View Benefits</a>
+                  <a href="#training" className="list-group-item list-group-item-action">Training Modules</a>
+              </div>
+          </section>
 
-            <section id="announcements" class="col-md-6 mb-4">
-                <h3>Recent Announcements</h3>
-                <ul class="list-group">
-                    <li class="list-group-item">Company picnic scheduled for next month</li>
-                    <li class="list-group-item">New health insurance options available</li>
-                    <li class="list-group-item">Quarterly meeting presentation slides now available</li>
-                </ul>
-            </section>
+          <section id="announcements" className="col-md-6 mb-4">
+              <h3>Recent Announcements</h3>
+              <ul className="list-group">
+                  <li className="list-group-item">Company picnic scheduled for next month</li>
+                  <li className="list-group-item">New health insurance options available</li>
+                  <li className="list-group-item">Quarterly meeting presentation slides now available</li>
+              </ul>
+          </section>
         </div>
 
-        <footer class="bg-light text-center text-lg-start mt-4">
-          <div class="container p-4">
+        <footer className="bg-light text-center text-lg-start mt-4">
+          <div className="container p-4">
               <p>&copy; 2023 Company Name. All rights reserved.</p>
               <div>
-                  <a href="#contact" class="text-dark me-3">Contact HR</a>
-                  <a href="#help" class="text-dark me-3">Help Desk</a>
-                  <a href="#privacy" class="text-dark">Privacy Policy</a>
+                  <a href="#contact" className="text-dark me-3">Contact HR</a>
+                  <a href="#help" className="text-dark me-3">Help Desk</a>
+                  <a href="#privacy" className="text-dark">Privacy Policy</a>
               </div>
           </div>
         </footer>
@@ -100,9 +112,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<></>} />
-
         </Routes>
-
       </div>
     </Router>
   );
