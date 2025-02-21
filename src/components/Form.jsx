@@ -29,9 +29,9 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
                 onAuthSuccess();
                 navigate("/canje-de-cupones");
             } else {
+                setError("Acceso denegado. Solo los empleados pueden iniciar sesión.");
                 console.log("Acceso denegado. Solo los empleados pueden iniciar sesión.");
                 await auth.signOut();
-                setError("Acceso denegado. Solo los empleados pueden iniciar sesión.");
             }
         } catch (error) {
             setError("Credenciales incorrectas. Verifique su correo y contraseña.");
