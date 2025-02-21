@@ -25,17 +25,17 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
 
             if (empleadoDoc.exists()) {
                 console.log("Usuario es empleado, acceso permitido.");
-                setSuccessMessage("Inicio de sesión exitoso. Redirigiendo...");
+                setSuccessMessage("Inicio de sesión exitoso. Redirigiendo...");
                 onAuthSuccess(); 
                 navigate("/canje-de-cupones"); 
             } else {
-                setError("Acceso denegado. Solo los empleados pueden iniciar sesión.");
-                console.log("Acceso denegado. Solo los empleados pueden iniciar sesión.");
-                await auth.signOut();
+                console.log("Acceso denegado. Solo los empleados pueden iniciar sesión.");
+                await auth.signOut(); 
+                setError("Acceso denegado. Solo los empleados pueden iniciar sesión.");
             }
         } catch (error) {
-            console.error("Error durante el inicio de sesión:", error);
-            setError("Credenciales incorrectas. Verifique su correo y contraseña.");
+            console.error("Error durante el inicio de sesión:", error);
+            setError("Credenciales incorrectas. Verifique su correo y contraseña.");
         }
     };
 
@@ -46,13 +46,13 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
                 style={{ width: "25rem", backgroundColor: "#d4edda", maxHeight: "80vh", overflowY: "auto" }}
             >
                 <button className="btn-close" onClick={onCloseForm}></button>
-                <h2 className="text-center">Iniciar Sesión</h2>
-                {/* Mostrar mensajes de error o éxito */}
+                <h2 className="text-center">Iniciar Sesión</h2>
+                {/* Mostrar mensajes de error o éxito */}
                 {error && <div className="alert alert-danger">{error}</div>}
                 {successMessage && <div className="alert alert-success">{successMessage}</div>}
                 <form onSubmit={handleLogin}>
                     <div className="mb-3">
-                        <label className="form-label">Correo Electrónico</label>
+                        <label className="form-label">Correo Electrónico</label>
                         <input
                             type="email"
                             className="form-control"
@@ -62,7 +62,7 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">Contraseña</label>
+                        <label className="form-label">Contraseña</label>
                         <input
                             type="password"
                             className="form-control"
@@ -72,7 +72,7 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
                         />
                     </div>
                     <button type="submit" className="btn btn-success w-100">
-                        Iniciar Sesión
+                        Iniciar Sesión
                     </button>
                 </form>
             </div>
