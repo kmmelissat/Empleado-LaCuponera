@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { auth, db } from "../firebase"; 
+import { auth, db } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore"; 
+import { doc, getDoc } from "firebase/firestore";
 
 export const Form = ({ onAuthSuccess, onCloseForm }) => {
     const [email, setEmail] = useState("");
@@ -11,41 +11,27 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        setError(null); 
-        setSuccessMessage(null); 
+        setError(null);
+        setSuccessMessage(null);
 
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log("Usuario autenticado:", userCredential.user);
 
-            const empleadoDocRef = doc(db, "empleados", userCredential.user.uid); 
-            const empleadoDoc = await getDoc(empleadoDocRef); 
+            const empleadoDocRef = doc(db, "empleados", userCredential.user.uid);
+            const empleadoDoc = await getDoc(empleadoDocRef);
 
             if (empleadoDoc.exists()) {
                 console.log("Usuario es empleado, acceso permitido.");
-                setSuccessMessage("Inicio de sesión exitoso. Redirigiendo..."); 
-                onAuthSuccess(); 
+                setSuccessMessage("Inicio de sesión exitoso. Redirigiendo...");
+                onAuthSuccess();
             } else {
-                setError("Acceso denegado. Solo los empleados pueden iniciar sesión.");
-                await auth.signOut(); 
+                console.log("Acceso denegado. Solo los empleados pueden iniciar sesión.");
+                await auth.signOut();
+                return; 
             }
         } catch (error) {
-            console.error("Error durante el inicio de sesión:", error); 
-
-            switch (error.code) {
-                case "auth/invalid-credential":
-                    setError("Credenciales incorrectas. Por favor, verifica tu correo y contraseña.");
-                    break;
-                case "auth/user-not-found":
-                    setError("Usuario no encontrado. Verifica tu correo electrónico.");
-                    break;
-                case "auth/wrong-password":
-                    setError("Contraseña incorrecta. Por favor, inténtalo de nuevo.");
-                    break;
-                default:
-                    setError("Ocurrió un error durante el inicio de sesión. Por favor, inténtalo de nuevo.");
-                    break;
-            }
+            setError(error.message);
         }
     };
 
@@ -53,20 +39,11 @@ export const Form = ({ onAuthSuccess, onCloseForm }) => {
         <div className="container d-flex justify-content-center mt-5">
             <div
                 className="card p-4 shadow"
-                style={{ width: "25rem", backgroundColor: "#d4edda", maxHeight: "80vh", overflowY: "auto" }}>
+                style={{ width: "25rem", backgroundColor: "#d4edda", maxHeight: "80vh", overflowY: "auto" }}
+            >
                 <button className="btn-close" onClick={onCloseForm}></button>
                 <h2 className="text-center">Iniciar Sesión</h2>
-
-                {/* Mostrar mensaje de éxito */}
-                {successMessage && (
-                    <div className="alert alert-success">{successMessage}</div>
-                )}
-
-                {/* Mostrar mensaje de error */}
-                {error && (
-                    <div className="alert alert-danger">{error}</div>
-                )}
-
+                {error && <div className="alert alert-danger">{error}</div>}
                 <form onSubmit={handleLogin}>
                     <div className="mb-3">
                         <label className="form-label">Correo Electrónico</label>

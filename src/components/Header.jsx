@@ -29,6 +29,14 @@ export function Header({ usuario, onSignInClick }) {
                             <button className="btn btn-outline-dark mx-3" onClick={onSignInClick}>Iniciar Sesión</button>
                         )}
                     </div>
+
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                            <ul className="navbar-nav ms-auto">
+                                <li className="nav-item"><a className="nav-link active" href="#home">Inicio</a></li>
+                                <li className="nav-item"><a className="nav-link" href="#cupones">Cupones</a></li>
+                                <li className="nav-item"><a className="nav-link" href="#perfil">Mi Perfil</a></li>
+                            </ul>
+                    </div>
                 </div>
             </nav>
         </header>

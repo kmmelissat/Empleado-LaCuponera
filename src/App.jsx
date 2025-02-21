@@ -7,7 +7,6 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Header } from "./components/Header.jsx";
 import { Form } from "./components/Form.jsx";
-import CanjeCupon from "./components/CanjeCupon.jsx";
 
 
 function App() {
@@ -45,6 +44,14 @@ function App() {
       <div style={{ backgroundColor: "rgb(227, 238, 206)", minHeight: "100vh" }}>
         <Header usuario={usuario} onSignInClick={() => setMostrarForm(true)} onSignOutClick={handleSignOut} />
         
+        <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+                <li className="nav-item"><a className="nav-link active" href="#home">Inicio</a></li>
+                <li className="nav-item"><a className="nav-link" href="#cupones">Cupones</a></li>
+                <li className="nav-item"><a className="nav-link" href="#perfil">Mi Perfil</a></li>
+            </ul>
+        </div>
+
         {alerta && (
           <div className="alert alert-info text-center" role="alert">
             {alerta}
@@ -56,10 +63,10 @@ function App() {
             <Form onAuthSuccess={() => { setUsuario(auth.currentUser); setMostrarForm(false); }} onCloseForm={() => setMostrarForm(false)} />
           </div>
         )}
-        
+
         <Routes>
-          <Route path="/" element={<h2 className="text-center mt-5">Bienvenido al Sistema de Canje de Cupones</h2>} />
-          <Route path="/canje" element={<CanjeCupon />} />
+          <Route path="/" element={<></>} />
+
         </Routes>
 
       </div>
