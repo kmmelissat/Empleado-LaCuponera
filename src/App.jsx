@@ -7,7 +7,8 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Header } from "./components/Header.jsx";
 import { Form } from "./components/Form.jsx";
-import CanjeCupon from "./components/CanjeCupon.jsx";
+import Bienvenida from "./components/Bienvenida.jsx";
+import FormularioCanje from "./components/FormularioCanje.jsx";
 
 
 function App() {
@@ -44,6 +45,8 @@ function App() {
     <Router>
       <div style={{ backgroundColor: "rgb(227, 238, 206)", minHeight: "100vh" }}>
         <Header usuario={usuario} onSignInClick={() => setMostrarForm(true)} onSignOutClick={handleSignOut} />
+        {usuario && <Bienvenida usuario={usuario} />}
+
         
         {alerta && (
           <div className="alert alert-info text-center" role="alert">
@@ -58,8 +61,7 @@ function App() {
         )}
         
         <Routes>
-          <Route path="/" element={<h2 className="text-center mt-5">Bienvenido al Sistema de Canje de Cupones</h2>} />
-          <Route path="/canje" element={<CanjeCupon />} />
+          <Route path="/" element={<FormularioCanje onSubmit={(data) => console.log("Datos enviados:", data)} />} />
         </Routes>
 
       </div>
