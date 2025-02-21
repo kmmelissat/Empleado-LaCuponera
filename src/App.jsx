@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { auth } from "./firebase.js";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { Header } from "./components/Header.jsx";
+import { Login } from "./components/Login.jsx";
 import { Form } from "./components/Form.jsx";
-import './css/custom.css';
-
-// Si la imagen está en la carpeta 'assets', puedes importarla como sigue
-// import fondo from './assets/imagen.jpg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -43,35 +37,7 @@ function App() {
 
   return (
     <Router>
-      <div 
-        style={{
-          backgroundImage: 'url("/img/fondo.jpeg")', 
-          backgroundSize: 'cover', 
-          minHeight: "100vh",
-          backgroundPosition: "center"
-        }}
-      >
-        <Header usuario={usuario} onSignInClick={() => setMostrarForm(true)} onSignOutClick={handleSignOut} />
-
-        <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-                <li className="nav-item"><a className="nav-link active" href="#home">Inicio</a></li>
-                <li className="nav-item"><a className="nav-link" href="#cupones">Cupones</a></li>
-                <li className="nav-item"><a className="nav-link" href="#perfil">Mi Perfil</a></li>
-            </ul>
-        </div>
-
-        <footer className="bg-light text-center text-lg-start mt-4">
-          <div className="container p-4">
-              <p>&copy; 2023 Company Name. All rights reserved.</p>
-              <div>
-                  <a href="#contact" className="text-dark me-3">Contact HR</a>
-                  <a href="#help" className="text-dark me-3">Help Desk</a>
-                  <a href="#privacy" className="text-dark">Privacy Policy</a>
-              </div>
-          </div>
-        </footer>
-
+        <Login usuario={usuario} onSignInClick={() => setMostrarForm(true)} onSignOutClick={handleSignOut} />
         {alerta && (
           <div className="alert alert-info text-center" role="alert">
             {alerta}
@@ -87,8 +53,6 @@ function App() {
         <Routes>
           <Route path="/" element={<></>} />
         </Routes>
-
-      </div>
     </Router>
   );
 }
